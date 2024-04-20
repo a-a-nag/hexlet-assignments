@@ -1,0 +1,27 @@
+@import gg.jte.Content
+
+@param Content content
+@param Content footer = null
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <a href="/">Main</a>
+        <a href="/users">Users</a>
+    </header>
+
+    <main>
+        ${content}
+    </main>
+
+    <footer>
+        ${footer}
+    </footer>
+</body>
+</html>
