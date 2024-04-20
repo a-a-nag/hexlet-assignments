@@ -1,12 +1,24 @@
 @import exercise.dto.users.UsersPage
-@import exercise.model.User
-@param UsersPage page
+@param UsersPage usersPage
 
-<div>
-    <div>
-        @for(User user : page.getUsers())
-            <a href="/users/${user.getId()}">${user.getFirstName()}</a>
-            <p>${user.getLastName()}</p>
-        @endfor
-    </div>
-</div>
+<html lang="en">
+    <body>
+        <div>
+            <table>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                </tr>
+
+                @for(var user : usersPage.getUsers())
+                    <tr>
+                        <td>${user.getFirstName()}</td>
+                        <td>${user.getLastName()}</td>
+                        <td>${user.getEmail()}</td>
+                    </tr>
+                @endfor
+            </table>
+        </div>
+    </body>
+</html>

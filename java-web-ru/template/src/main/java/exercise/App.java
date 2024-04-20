@@ -23,8 +23,25 @@ public final class App {
 
         // BEGIN
         app.get("/users", ctx -> {
-           var page = new UsersPage(USERS);
-           ctx.render("/users/index.jte", model("page", page));
+            UsersPage usersPage = new UsersPage(App.USERS);
+            ctx.render("users/index.jte", model("usersPage", usersPage));
+        });
+
+        app.get("/users/{id}", ctx -> {
+            var id = ctx.pathParamAsClass("id", Long.class).get();
+
+            User user = App.USERS.stream()
+                    .filter(u -> id.equals(u.getId()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (user == null) {
+                throw new NotFoundResponse("User not found");
+            }
+
+            UserPage userPage = new UserPage(user);
+
+            ctx.render("users/show.jte", model("userPage", userPage));
         });
         // END
 
