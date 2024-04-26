@@ -21,17 +21,16 @@ public final class App {
             config.fileRenderer(new JavalinJte());
         });
 
-        // BEGIN
         app.get("/users", ctx -> {
-            UsersPage usersPage = new UsersPage(App.USERS);
+            UsersPage usersPage = new UsersPage(USERS);
             ctx.render("users/index.jte", model("usersPage", usersPage));
         });
 
-        app.get("/users/{id}", ctx -> {
-            var id = ctx.pathParamAsClass("id", Long.class).get();
+        app.get("users/{id}", ctx -> {
+            Long id = ctx.pathParamAsClass("id", Long.class).get();
 
-            User user = App.USERS.stream()
-                    .filter(u -> id.equals(u.getId()))
+            User user = USERS.stream()
+                    .filter(u -> u.getId() == id)
                     .findFirst()
                     .orElse(null);
 
@@ -43,7 +42,6 @@ public final class App {
 
             ctx.render("users/show.jte", model("userPage", userPage));
         });
-        // END
 
         app.get("/", ctx -> {
             ctx.render("index.jte");
