@@ -32,31 +32,31 @@ public final class App {
 
         // BEGIN
         app.get("/articles/build", ctx -> {
-            var page = new BuildArticlePage();
+            BuildArticlePage page = new BuildArticlePage();
             ctx.render("articles/build.jte", model("page", page));
         });
 
         app.post("/articles", ctx -> {
             try {
                 var title = ctx.formParamAsClass("title", String.class)
-                        .check((value -> value.length() >= 2), "Название не должно быть короче двух символов")
-                        .check((value -> !ArticleRepository.existsByTitle(value)), "Статья с таким названием уже существует")
+                        .check(e -> !ArticleRepository.existsByTitle(e), "Статья с таким названием уже существует")
+                        .check(e -> e.length() > 2, "Название не должно быть короче двух символов")
                         .get();
 
                 var content = ctx.formParamAsClass("content", String.class)
-                        .check((value -> value.length() >= 10), "Статья должна быть не короче 10 символов")
+                        .check(e -> e.length() >= 10, "Статья должна быть не короче 10 символов")
                         .get();
 
-                var article = new Article(title, content);
+                Article article = new Article(title, content);
                 ArticleRepository.save(article);
                 ctx.redirect("/articles");
             } catch (ValidationException e) {
-                ctx.status(422);
                 var title = ctx.formParam("title");
                 var content = ctx.formParam("content");
 
-                var page = new BuildArticlePage(title, content, e.getErrors());
-                ctx.render("articles/build.jte", model("page", page));
+                BuildArticlePage page = new BuildArticlePage(title, content, e.getErrors());
+
+                ctx.render("articles/build.jte", model("page", page)).status(422);
             }
         });
         // END
