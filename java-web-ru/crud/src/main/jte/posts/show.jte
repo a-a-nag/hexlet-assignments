@@ -1,11 +1,9 @@
 @import exercise.dto.posts.PostPage
-@import exercise.util.NamedRoutes
 @param PostPage page
 
 @template.layout.page(
-content = @`
-    <h1>${page.getPost().getName()}</h1>
-    <p>${page.getPost().getBody()}</p>
-    <a href="${NamedRoutes.postsPath()}">To all posts</a>
-`
+    content = @`
+        <h1><p>${page.getPost().getName()} ${page.getPost().getBody()}</p></h1>
+        <a href="/posts">Show All Posts</a>
+    `
 )

@@ -2,7 +2,6 @@ package exercise.dto.posts;
 
 import java.util.List;
 import exercise.model.Post;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,5 +9,6 @@ import lombok.Getter;
 @Getter
 public class PostsPage {
     private List<Post> posts;
-    private int page;
+    private int pageNumber;
+    private int maxPage;
 }
