@@ -13,7 +13,7 @@
                 ${page.getPost().getBody()}
             </div>
             <!-- BEGIN -->
-            <a href="${NamedRoutes.editPath(page.getPost().getId())}">Edit post</a>
+            <a href="/posts/${page.getPost().getId()}/edit">Edit</a>
             <!-- END -->
         </main>
     `
